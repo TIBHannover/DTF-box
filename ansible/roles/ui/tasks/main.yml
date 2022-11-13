@@ -222,7 +222,7 @@
   become: true    
   
 - name: run local UI DSpace server
-  shell: yarn install && ng serve --host 0.0.0.0 --configuration=development
+  shell: yarn install && ng serve --host 0.0.0.0 --configuration=development &
   args:
     chdir: "{{ angular_home_dir }}/DtfTIBClient/"
   when: env == "dev"
