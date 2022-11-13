@@ -222,14 +222,14 @@
   become: true    
   
 - name: run local UI DSpace server
-  shell: yarn install && ng serve --host 0.0.0.0 --configuration=development &
+  shell: "yarn install" && "ng serve --host 0.0.0.0 --port 4200 --configuration=development &"
   args:
     chdir: "{{ angular_home_dir }}/DtfTIBClient/"
   when: env == "dev"
   become: true
 
 - name: run local UI DSpace server
-  shell: mvn -U clean install -DskipTests && mvn spring-boot:run &
+  shell: "mvn -U clean install -DskipTests" && "mvn spring-boot:run &"
   args:
     chdir: "{{ angular_home_dir }}/DtfTIB/"
   when: env == "dev"  
