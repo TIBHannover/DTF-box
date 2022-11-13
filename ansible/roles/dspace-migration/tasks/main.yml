@@ -1,0 +1,40 @@
+- name: shell run
+  shell: 'psql -U postgres {{ db_name }} -c "DROP EXTENSION pgcrypto CASCADE;"'
+  become: true
+
+- name: install pexpect
+  shell: pip3 install pexpect
+  become: true
+
+- name: clean db
+  expect:
+    command: /data/dspace01/bin/dspace database clean 
+    responses:
+      y/n: 'y'
+    echo: yes
+    timeout: 30  
+  become: true
+
+
+ 
+
+- name: update db
+  shell: 'psql -U postgres {{ db_name }} < /data/dspace/dspace.sql' 
+  become: true  
+
+- name: Add pgcrypto
+  community.postgresql.postgresql_ext:
+    name: pgcrypto
+    db: '{{ db_name }}'
+    state: present
+    login_user: "{{ postgres_user }}"
+    login_password: "{{ postgres_password }}"
+  become: true   
+
+- name: migrate db
+  shell: cd /data/dspace01/bin && psql dspace dspace -c 'GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO dspace;' && psql dspace dspace -c 'GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO dspace;' && ./dspace database migrate ignored
+  become: true
+
+- name: restart tomcat
+  shell: systemctl restart tomcat9
+  become: true  

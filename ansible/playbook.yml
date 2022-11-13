@@ -1,0 +1,38 @@
+---
+- hosts: all
+  vars_files:
+      - vars/main.yml
+  
+  
+  
+  collections:
+  - community.general
+  - community.postgresql
+  - ansible.posix
+
+  roles:
+    - java
+    - maven
+    - ui
+    # - ant
+    # - solr
+    # - tomCat
+    # - postgreSQL-remote
+    # - maven
+    # - dspace
+#     - dspace-migration
+  
+  tasks:
+  
+  - shell: ps -eo pcpu,user,args | sort -r -k1 | head -n5
+    register: ps
+
+  - debug: var=ps.stdout_lines
+
+# - hosts: all
+#   become: true
+#   vars_files:
+#       - vars/main.yml
+#   roles:
+#     - role: apache
+#       when: install_apache
