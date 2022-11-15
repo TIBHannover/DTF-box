@@ -107,20 +107,20 @@
 - name: stop all prior pm2 processes
   shell: pm2 stop all &
 
-- name: Install required packages
-  apt:
-    name:
-      - gnupg2
-      - wget
-      - acl
-      - ncat
-      - postgresql
-      - postgresql-contrib
-      - python3-pip
-      - libpq-dev
-      - python-psycopg2
-    state: absent
-  become: true  
+# - name: Install required packages
+#   apt:
+#     name:
+#       - gnupg2
+#       - wget
+#       - acl
+#       - ncat
+#       - postgresql
+#       - postgresql-contrib
+#       - python3-pip
+#       - libpq-dev
+#       - python-psycopg2
+#     state: absent
+#   become: true  
 
 - name: Install required packages
   apt:
