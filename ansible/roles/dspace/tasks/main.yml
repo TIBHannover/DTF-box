@@ -47,14 +47,14 @@
 
 - name: create directory for dspace installation
   file:
-    path: /data/dspace01
+    path: /data/dspace-install
     state: directory
     owner: '{{work_user}}'
   become: true
 
 - name: Give permission to the dspace user
   file:
-    path: /data/dspace01
+    path: /data/dspace-install
     owner: '{{work_user}}'
     recurse: true
   become: true
@@ -75,7 +75,7 @@
 
 - name: Give permission to the dspace user
   file:
-    path: /data/dspace01
+    path: /data/dspace-install
     owner: '{{work_user}}'
     recurse: true  
   become: true
@@ -110,7 +110,7 @@
 #   shell: '{{ tomcat_install_dir}}/apache-tomcat-{{ tomcat_version }}/bin/catalina.sh start'
 - name: Copy a folders
   ansible.builtin.copy:
-    src: '/data/dspace01/webapps/server/'
+    src: '/data/dspace-install/webapps/server/'
     dest: '/var/lib/tomcat9/webapps/{{ server_namespace | regex_replace("^/", "") | replace("/", "#") }}'
     directory_mode: yes
     remote_src: yes
@@ -138,7 +138,7 @@
 
 - name: Copy a folders solr cores
   ansible.builtin.copy:
-    src: /data/dspace01/solr/
+    src: /data/dspace-install/solr/
     dest: '{{ solr_install_dir}}/solr-{{ solr_version }}/server/solr/configsets'
     remote_src: yes
     directory_mode: yes
@@ -152,7 +152,7 @@
   become: true 
 
 - name: Ensure solr is started and enabled on boot.
-  shell: /opt/bin/solr/solr-{{ solr_version }}/bin/solr restart -force &
+  shell: /opt/solr/solr-{{ solr_version }}/bin/solr restart -force &
   args:
     warn: false 
 
@@ -180,7 +180,7 @@
 
 - name: Give permission to the dspace user
   file:
-    path: /data/dspace01
+    path: /data/dspace-install
     owner: '{{ work_user }}'
     recurse: true  
     state: directory
@@ -196,7 +196,7 @@
 
 - name: Give permission to the dspace user
   file:
-    path: /data/dspace01
+    path: /data/dspace-install
     owner: '{{ tomcat_user }}'
     recurse: true  
     state: directory
