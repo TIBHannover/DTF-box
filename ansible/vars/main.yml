@@ -46,14 +46,14 @@ allow_world_readable_tmpfiles: true
 
   
 
-ant_download_dir: /opt/tmp/ant
+ant_download_dir: /opt/local/ant
 ant_install_dir: /opt/ant
-dspace_download_dir: /opt/tmp/dspace
-dspace_install_dir: /opt/bin/dspace
-tomcat_download_dir: /opt/tmp/tomcat
+dspace_download_dir: /opt/local/dspace
+dspace_install_dir: /opt/dspace
+tomcat_download_dir: /opt/local/tomcat
 tomcat_install_dir: /opt
-solr_download_dir: /opt/tmp/solr
-solr_install_dir: /opt/bin/solr
+solr_download_dir: /opt/local/solr
+solr_install_dir: /opt/solr
 ant_version: 1.10.10
 dtf_angular_version: master
 tomcat_version: 9.0.59
